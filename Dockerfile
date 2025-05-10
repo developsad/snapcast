@@ -15,10 +15,13 @@ RUN apk add --no-cache \
     pulseaudio-alsa \
     snapcast
 
-# Install build dependencies
+# Install Rust and Cargo first
 RUN apk add --no-cache \
-    cargo \
     rust \
+    cargo
+
+# Install remaining build dependencies
+RUN apk add --no-cache \
     build-base \
     protobuf-dev \
     alsa-lib-dev \
