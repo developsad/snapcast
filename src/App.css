@@ -5,10 +5,28 @@
   text-align: center;
 }
 
+.app-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 .card {
   padding: 2em;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.05);
+  margin-top: 2rem;
 }
 
 .read-the-docs {
   color: #888;
+}
+
+h1 {
+  font-size: 3.2em;
+  background: linear-gradient(45deg, #ff6b6b, #6b6bff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.5em;
 }
