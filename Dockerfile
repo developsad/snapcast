@@ -1,6 +1,10 @@
 ARG BUILD_FROM
 FROM $BUILD_FROM
 
+# Install S6 Overlay
+WORKDIR /
+COPY rootfs /
+
 # Update package index and add repositories
 RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories && \
     echo "http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories && \
@@ -17,8 +21,9 @@ RUN apk add --no-cache \
     snapcast \
     librespot
 
-# Copy root filesystem
-COPY rootfs /
+# Set permissions
+RUN chmod a+x /etc/services.d/*/run && \
+    chmod a+x /etc/cont-init.d/*
 
 LABEL \
     io.hass.name="Snapcast Server" \
@@ -31,3 +36,4 @@ WORKDIR /
 
 # Use s6-overlay as entrypoint
 ENTRYPOINT ["/init"]
+CMD []
