@@ -22,10 +22,17 @@ RUN apk add --no-cache \
     build-base \
     protobuf-dev \
     alsa-lib-dev \
-    python3
+    python3 \
+    git
 
-# Build and install librespot
-RUN cargo install librespot --version 0.4.2 --no-default-features --features pulseaudio-backend,alsa-backend
+# Clone and build librespot from source
+RUN git clone https://github.com/librespot-org/librespot.git && \
+    cd librespot && \
+    git checkout v0.4.2 && \
+    cargo build --release --no-default-features --features pulseaudio-backend,alsa-backend && \
+    cp target/release/librespot /usr/local/bin/ && \
+    cd .. && \
+    rm -rf librespot
 
 # Copy root filesystem
 COPY rootfs /
