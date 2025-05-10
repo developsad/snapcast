@@ -1,10 +1,10 @@
 ARG BUILD_FROM
 FROM $BUILD_FROM
 
-# Update package index and set repository
-RUN echo "https://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories && \
-    echo "https://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories && \
-    apk update
+# Update package index and add repositories
+RUN echo "http://dl-cdn.alpinelinux.org/alpine/v3.18/main" >> /etc/apk/repositories && \
+    echo "http://dl-cdn.alpinelinux.org/alpine/v3.18/community" >> /etc/apk/repositories && \
+    apk update --no-cache
 
 # Install required packages
 RUN apk add --no-cache \
@@ -13,7 +13,10 @@ RUN apk add --no-cache \
     avahi-compat-libdns_sd \
     dbus \
     pulseaudio-alsa \
-    snapcast \
+    snapcast
+
+# Install build dependencies
+RUN apk add --no-cache \
     cargo \
     rust \
     build-base \
