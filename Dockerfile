@@ -29,5 +29,5 @@ LABEL \
 # Set working directory
 WORKDIR /
 
-# Start script
-CMD ["/usr/bin/with-contenv", "bashio"]
+# Use s6-overlay as entrypoint
+ENTRYPOINT ["/init"]
