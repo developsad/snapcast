@@ -1,6 +1,9 @@
 ARG BUILD_FROM
 FROM $BUILD_FROM
 
+# Create S6 directory structure first
+RUN mkdir -p /etc/services.d/snapcast /etc/cont-init.d
+
 # Install S6 Overlay
 WORKDIR /
 COPY rootfs /

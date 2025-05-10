@@ -1,0 +1,3 @@
+#!/usr/bin/with-contenv bashio
+# Initialize any required services here
+bashio::log.info "Initializing Snapcast server..."
