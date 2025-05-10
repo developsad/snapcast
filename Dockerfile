@@ -25,11 +25,13 @@ RUN apk add --no-cache \
     python3 \
     git \
     openssl-dev \
-    pkgconfig
+    pkgconfig \
+    musl-dev
 
 # Set environment variables for build
 ENV CARGO_NET_GIT_FETCH_WITH_CLI=true
 ENV OPENSSL_DIR=/usr
+ENV RUSTFLAGS="-C target-feature=-crt-static"
 
 # Clone and build librespot from source
 RUN git clone --depth 1 --branch v0.4.2 https://github.com/librespot-org/librespot.git && \
