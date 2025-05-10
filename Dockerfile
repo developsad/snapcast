@@ -2,11 +2,11 @@ ARG BUILD_FROM
 FROM $BUILD_FROM
 
 # Update package index and add repositories
-RUN echo "http://dl-cdn.alpinelinux.org/alpine/v3.18/main" >> /etc/apk/repositories && \
-    echo "http://dl-cdn.alpinelinux.org/alpine/v3.18/community" >> /etc/apk/repositories && \
+RUN echo "http://dl-cdn.alpinelinux.org/alpine/v3.16/main" >> /etc/apk/repositories && \
+    echo "http://dl-cdn.alpinelinux.org/alpine/v3.16/community" >> /etc/apk/repositories && \
     apk update --no-cache
 
-# Install required packages
+# Install runtime dependencies
 RUN apk add --no-cache \
     alsa-lib \
     avahi \
@@ -15,13 +15,10 @@ RUN apk add --no-cache \
     pulseaudio-alsa \
     snapcast
 
-# Install Rust and Cargo first
+# Install build dependencies
 RUN apk add --no-cache \
-    rust \
-    cargo
-
-# Install remaining build dependencies
-RUN apk add --no-cache \
+    rust=1.60.0-r2 \
+    cargo=1.60.0-r2 \
     build-base \
     protobuf-dev \
     alsa-lib-dev \
