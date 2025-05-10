@@ -23,14 +23,19 @@ RUN apk add --no-cache \
     protobuf-dev \
     alsa-lib-dev \
     python3 \
-    git
+    git \
+    openssl-dev \
+    pkgconfig
+
+# Set environment variables for build
+ENV CARGO_NET_GIT_FETCH_WITH_CLI=true
+ENV OPENSSL_DIR=/usr
 
 # Clone and build librespot from source
-RUN git clone https://github.com/librespot-org/librespot.git && \
+RUN git clone --depth 1 --branch v0.4.2 https://github.com/librespot-org/librespot.git && \
     cd librespot && \
-    git checkout v0.4.2 && \
     cargo build --release --no-default-features --features pulseaudio-backend,alsa-backend && \
-    cp target/release/librespot /usr/local/bin/ && \
+    install -D -m 755 target/release/librespot /usr/local/bin/ && \
     cd .. && \
     rm -rf librespot
 
